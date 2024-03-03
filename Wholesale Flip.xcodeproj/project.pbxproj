@@ -1,0 +1,637 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A0983A5D2B6AAFB70072444B /* SplashPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0983A5C2B6AAFB70072444B /* SplashPage.swift */; };
+		A0983A602B6AB1B80072444B /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = A0983A5F2B6AB1B80072444B /* GoogleMobileAds */; };
+		A09CCB9B2A266FBD003248DB /* Wholesale_FlipApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09CCB9A2A266FBD003248DB /* Wholesale_FlipApp.swift */; };
+		A09CCB9D2A266FBD003248DB /* InitialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09CCB9C2A266FBD003248DB /* InitialView.swift */; };
+		A09CCB9F2A266FBF003248DB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A09CCB9E2A266FBF003248DB /* Assets.xcassets */; };
+		A09CCBA22A266FBF003248DB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A09CCBA12A266FBF003248DB /* Preview Assets.xcassets */; };
+		A09CCBAC2A266FBF003248DB /* Wholesale_FlipTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09CCBAB2A266FBF003248DB /* Wholesale_FlipTests.swift */; };
+		A09CCBB62A266FBF003248DB /* Wholesale_FlipUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09CCBB52A266FBF003248DB /* Wholesale_FlipUITests.swift */; };
+		A09CCBB82A266FBF003248DB /* Wholesale_FlipUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09CCBB72A266FBF003248DB /* Wholesale_FlipUITestsLaunchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		A09CCBA82A266FBF003248DB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A09CCB8F2A266FBD003248DB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A09CCB962A266FBD003248DB;
+			remoteInfo = "Wholesale Flip";
+		};
+		A09CCBB22A266FBF003248DB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A09CCB8F2A266FBD003248DB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A09CCB962A266FBD003248DB;
+			remoteInfo = "Wholesale Flip";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		A0983A5C2B6AAFB70072444B /* SplashPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashPage.swift; sourceTree = "<group>"; };
+		A0983A612B6AB1D80072444B /* Wholesale-Flip-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Wholesale-Flip-Info.plist"; sourceTree = SOURCE_ROOT; };
+		A09CCB972A266FBD003248DB /* Wholesale Flip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Wholesale Flip.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A09CCB9A2A266FBD003248DB /* Wholesale_FlipApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wholesale_FlipApp.swift; sourceTree = "<group>"; };
+		A09CCB9C2A266FBD003248DB /* InitialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialView.swift; sourceTree = "<group>"; };
+		A09CCB9E2A266FBF003248DB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A09CCBA12A266FBF003248DB /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		A09CCBA72A266FBF003248DB /* Wholesale FlipTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Wholesale FlipTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A09CCBAB2A266FBF003248DB /* Wholesale_FlipTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wholesale_FlipTests.swift; sourceTree = "<group>"; };
+		A09CCBB12A266FBF003248DB /* Wholesale FlipUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Wholesale FlipUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A09CCBB52A266FBF003248DB /* Wholesale_FlipUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wholesale_FlipUITests.swift; sourceTree = "<group>"; };
+		A09CCBB72A266FBF003248DB /* Wholesale_FlipUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wholesale_FlipUITestsLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A09CCB942A266FBD003248DB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A0983A602B6AB1B80072444B /* GoogleMobileAds in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A09CCBA42A266FBF003248DB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A09CCBAE2A266FBF003248DB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A09CCB8E2A266FBD003248DB = {
+			isa = PBXGroup;
+			children = (
+				A09CCB992A266FBD003248DB /* Wholesale Flip */,
+				A09CCBAA2A266FBF003248DB /* Wholesale FlipTests */,
+				A09CCBB42A266FBF003248DB /* Wholesale FlipUITests */,
+				A09CCB982A266FBD003248DB /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A09CCB982A266FBD003248DB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A09CCB972A266FBD003248DB /* Wholesale Flip.app */,
+				A09CCBA72A266FBF003248DB /* Wholesale FlipTests.xctest */,
+				A09CCBB12A266FBF003248DB /* Wholesale FlipUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A09CCB992A266FBD003248DB /* Wholesale Flip */ = {
+			isa = PBXGroup;
+			children = (
+				A09CCB9A2A266FBD003248DB /* Wholesale_FlipApp.swift */,
+				A0983A5C2B6AAFB70072444B /* SplashPage.swift */,
+				A09CCB9C2A266FBD003248DB /* InitialView.swift */,
+				A0983A612B6AB1D80072444B /* Wholesale-Flip-Info.plist */,
+				A09CCB9E2A266FBF003248DB /* Assets.xcassets */,
+				A09CCBA02A266FBF003248DB /* Preview Content */,
+			);
+			path = "Wholesale Flip";
+			sourceTree = "<group>";
+		};
+		A09CCBA02A266FBF003248DB /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				A09CCBA12A266FBF003248DB /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		A09CCBAA2A266FBF003248DB /* Wholesale FlipTests */ = {
+			isa = PBXGroup;
+			children = (
+				A09CCBAB2A266FBF003248DB /* Wholesale_FlipTests.swift */,
+			);
+			path = "Wholesale FlipTests";
+			sourceTree = "<group>";
+		};
+		A09CCBB42A266FBF003248DB /* Wholesale FlipUITests */ = {
+			isa = PBXGroup;
+			children = (
+				A09CCBB52A266FBF003248DB /* Wholesale_FlipUITests.swift */,
+				A09CCBB72A266FBF003248DB /* Wholesale_FlipUITestsLaunchTests.swift */,
+			);
+			path = "Wholesale FlipUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A09CCB962A266FBD003248DB /* Wholesale Flip */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A09CCBBB2A266FBF003248DB /* Build configuration list for PBXNativeTarget "Wholesale Flip" */;
+			buildPhases = (
+				A09CCB932A266FBD003248DB /* Sources */,
+				A09CCB942A266FBD003248DB /* Frameworks */,
+				A09CCB952A266FBD003248DB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Wholesale Flip";
+			packageProductDependencies = (
+				A0983A5F2B6AB1B80072444B /* GoogleMobileAds */,
+			);
+			productName = "Wholesale Flip";
+			productReference = A09CCB972A266FBD003248DB /* Wholesale Flip.app */;
+			productType = "com.apple.product-type.application";
+		};
+		A09CCBA62A266FBF003248DB /* Wholesale FlipTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A09CCBBE2A266FBF003248DB /* Build configuration list for PBXNativeTarget "Wholesale FlipTests" */;
+			buildPhases = (
+				A09CCBA32A266FBF003248DB /* Sources */,
+				A09CCBA42A266FBF003248DB /* Frameworks */,
+				A09CCBA52A266FBF003248DB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A09CCBA92A266FBF003248DB /* PBXTargetDependency */,
+			);
+			name = "Wholesale FlipTests";
+			productName = "Wholesale FlipTests";
+			productReference = A09CCBA72A266FBF003248DB /* Wholesale FlipTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		A09CCBB02A266FBF003248DB /* Wholesale FlipUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A09CCBC12A266FBF003248DB /* Build configuration list for PBXNativeTarget "Wholesale FlipUITests" */;
+			buildPhases = (
+				A09CCBAD2A266FBF003248DB /* Sources */,
+				A09CCBAE2A266FBF003248DB /* Frameworks */,
+				A09CCBAF2A266FBF003248DB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A09CCBB32A266FBF003248DB /* PBXTargetDependency */,
+			);
+			name = "Wholesale FlipUITests";
+			productName = "Wholesale FlipUITests";
+			productReference = A09CCBB12A266FBF003248DB /* Wholesale FlipUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A09CCB8F2A266FBD003248DB /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1430;
+				LastUpgradeCheck = 1520;
+				TargetAttributes = {
+					A09CCB962A266FBD003248DB = {
+						CreatedOnToolsVersion = 14.3;
+					};
+					A09CCBA62A266FBF003248DB = {
+						CreatedOnToolsVersion = 14.3;
+						TestTargetID = A09CCB962A266FBD003248DB;
+					};
+					A09CCBB02A266FBF003248DB = {
+						CreatedOnToolsVersion = 14.3;
+						TestTargetID = A09CCB962A266FBD003248DB;
+					};
+				};
+			};
+			buildConfigurationList = A09CCB922A266FBD003248DB /* Build configuration list for PBXProject "Wholesale Flip" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = A09CCB8E2A266FBD003248DB;
+			packageReferences = (
+				A0983A5E2B6AB1B80072444B /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */,
+			);
+			productRefGroup = A09CCB982A266FBD003248DB /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A09CCB962A266FBD003248DB /* Wholesale Flip */,
+				A09CCBA62A266FBF003248DB /* Wholesale FlipTests */,
+				A09CCBB02A266FBF003248DB /* Wholesale FlipUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A09CCB952A266FBD003248DB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A09CCBA22A266FBF003248DB /* Preview Assets.xcassets in Resources */,
+				A09CCB9F2A266FBF003248DB /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A09CCBA52A266FBF003248DB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A09CCBAF2A266FBF003248DB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A09CCB932A266FBD003248DB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A09CCB9D2A266FBD003248DB /* InitialView.swift in Sources */,
+				A0983A5D2B6AAFB70072444B /* SplashPage.swift in Sources */,
+				A09CCB9B2A266FBD003248DB /* Wholesale_FlipApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A09CCBA32A266FBF003248DB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A09CCBAC2A266FBF003248DB /* Wholesale_FlipTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A09CCBAD2A266FBF003248DB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A09CCBB82A266FBF003248DB /* Wholesale_FlipUITestsLaunchTests.swift in Sources */,
+				A09CCBB62A266FBF003248DB /* Wholesale_FlipUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A09CCBA92A266FBF003248DB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A09CCB962A266FBD003248DB /* Wholesale Flip */;
+			targetProxy = A09CCBA82A266FBF003248DB /* PBXContainerItemProxy */;
+		};
+		A09CCBB32A266FBF003248DB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A09CCB962A266FBD003248DB /* Wholesale Flip */;
+			targetProxy = A09CCBB22A266FBF003248DB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		A09CCBB92A266FBF003248DB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		A09CCBBA2A266FBF003248DB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		A09CCBBC2A266FBF003248DB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Wholesale Flip/Preview Content\"";
+				DEVELOPMENT_TEAM = 9YFR4MTQA7;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Wholesale-Flip-Info.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.03;
+				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.Wholesaleflip.Wholesale-Flip";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		A09CCBBD2A266FBF003248DB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Wholesale Flip/Preview Content\"";
+				DEVELOPMENT_TEAM = 9YFR4MTQA7;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Wholesale-Flip-Info.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.03;
+				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.Wholesaleflip.Wholesale-Flip";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		A09CCBBF2A266FBF003248DB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = L9MQN7GDTN;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.Wholesaleflip.Wholesale-FlipTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wholesale Flip.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Wholesale Flip";
+			};
+			name = Debug;
+		};
+		A09CCBC02A266FBF003248DB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = L9MQN7GDTN;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.Wholesaleflip.Wholesale-FlipTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wholesale Flip.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Wholesale Flip";
+			};
+			name = Release;
+		};
+		A09CCBC22A266FBF003248DB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = L9MQN7GDTN;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.Wholesaleflip.Wholesale-FlipUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Wholesale Flip";
+			};
+			name = Debug;
+		};
+		A09CCBC32A266FBF003248DB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = L9MQN7GDTN;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.Wholesaleflip.Wholesale-FlipUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Wholesale Flip";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A09CCB922A266FBD003248DB /* Build configuration list for PBXProject "Wholesale Flip" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A09CCBB92A266FBF003248DB /* Debug */,
+				A09CCBBA2A266FBF003248DB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A09CCBBB2A266FBF003248DB /* Build configuration list for PBXNativeTarget "Wholesale Flip" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A09CCBBC2A266FBF003248DB /* Debug */,
+				A09CCBBD2A266FBF003248DB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A09CCBBE2A266FBF003248DB /* Build configuration list for PBXNativeTarget "Wholesale FlipTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A09CCBBF2A266FBF003248DB /* Debug */,
+				A09CCBC02A266FBF003248DB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A09CCBC12A266FBF003248DB /* Build configuration list for PBXNativeTarget "Wholesale FlipUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A09CCBC22A266FBF003248DB /* Debug */,
+				A09CCBC32A266FBF003248DB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		A0983A5E2B6AB1B80072444B /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/googleads/swift-package-manager-google-mobile-ads.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.14.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A0983A5F2B6AB1B80072444B /* GoogleMobileAds */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A0983A5E2B6AB1B80072444B /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */;
+			productName = GoogleMobileAds;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = A09CCB8F2A266FBD003248DB /* Project object */;
+}
