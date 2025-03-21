@@ -3,7 +3,7 @@ import SwiftUI
 struct PaywallMaxView: View {
     @Environment(\.dismiss) var dismiss
     @State private var animate = false
-    // No ad view needed
+    // No ad view needed.
 
     var body: some View {
         ZStack {
