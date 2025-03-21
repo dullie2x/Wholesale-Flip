@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9C7986B62D8DC5AF00464AD0 /* PaywallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7986B52D8DC5AF00464AD0 /* PaywallView.swift */; };
+		9C7986B82D8DC8B600464AD0 /* PaywallMaxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7986B72D8DC8B600464AD0 /* PaywallMaxView.swift */; };
+		9CE5D8F22D8CEEC700E7DD93 /* PropertyDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE5D8F12D8CEEC700E7DD93 /* PropertyDetailsView.swift */; };
+		9CE5D8F42D8CEEE900E7DD93 /* ExpensesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE5D8F32D8CEEE900E7DD93 /* ExpensesView.swift */; };
+		9CE5D8F62D8CEF0600E7DD93 /* ResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE5D8F52D8CEF0600E7DD93 /* ResultsView.swift */; };
+		9CE5D8F82D8CEF4C00E7DD93 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE5D8F72D8CEF4C00E7DD93 /* MainTabView.swift */; };
+		9CE5D8FA2D8CF01B00E7DD93 /* AppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE5D8F92D8CF01B00E7DD93 /* AppViewModel.swift */; };
+		9CE5D8FC2D8CF0F800E7DD93 /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE5D8FB2D8CF0F800E7DD93 /* Components.swift */; };
 		A0983A5D2B6AAFB70072444B /* SplashPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0983A5C2B6AAFB70072444B /* SplashPage.swift */; };
 		A0983A602B6AB1B80072444B /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = A0983A5F2B6AB1B80072444B /* GoogleMobileAds */; };
 		A09CCB9B2A266FBD003248DB /* Wholesale_FlipApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09CCB9A2A266FBD003248DB /* Wholesale_FlipApp.swift */; };
@@ -36,8 +44,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9C7986B52D8DC5AF00464AD0 /* PaywallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaywallView.swift; sourceTree = "<group>"; };
+		9C7986B72D8DC8B600464AD0 /* PaywallMaxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaywallMaxView.swift; sourceTree = "<group>"; };
+		9CE5D8F12D8CEEC700E7DD93 /* PropertyDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyDetailsView.swift; sourceTree = "<group>"; };
+		9CE5D8F32D8CEEE900E7DD93 /* ExpensesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesView.swift; sourceTree = "<group>"; };
+		9CE5D8F52D8CEF0600E7DD93 /* ResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsView.swift; sourceTree = "<group>"; };
+		9CE5D8F72D8CEF4C00E7DD93 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
+		9CE5D8F92D8CF01B00E7DD93 /* AppViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppViewModel.swift; sourceTree = "<group>"; };
+		9CE5D8FB2D8CF0F800E7DD93 /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
 		A0983A5C2B6AAFB70072444B /* SplashPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashPage.swift; sourceTree = "<group>"; };
-		A0983A612B6AB1D80072444B /* Wholesale-Flip-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Wholesale-Flip-Info.plist"; sourceTree = SOURCE_ROOT; };
+		A0983A612B6AB1D80072444B /* Wholesale-Flip-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Wholesale-Flip-Info.plist"; sourceTree = SOURCE_ROOT; };
 		A09CCB972A266FBD003248DB /* Wholesale Flip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Wholesale Flip.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A09CCB9A2A266FBD003248DB /* Wholesale_FlipApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wholesale_FlipApp.swift; sourceTree = "<group>"; };
 		A09CCB9C2A266FBD003248DB /* InitialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialView.swift; sourceTree = "<group>"; };
@@ -101,8 +117,16 @@
 			children = (
 				A09CCB9A2A266FBD003248DB /* Wholesale_FlipApp.swift */,
 				A0983A5C2B6AAFB70072444B /* SplashPage.swift */,
-				A09CCB9C2A266FBD003248DB /* InitialView.swift */,
+				9CE5D8F72D8CEF4C00E7DD93 /* MainTabView.swift */,
+				9CE5D8F92D8CF01B00E7DD93 /* AppViewModel.swift */,
+				9CE5D8F32D8CEEE900E7DD93 /* ExpensesView.swift */,
+				9CE5D8F52D8CEF0600E7DD93 /* ResultsView.swift */,
+				9C7986B52D8DC5AF00464AD0 /* PaywallView.swift */,
+				9C7986B72D8DC8B600464AD0 /* PaywallMaxView.swift */,
+				9CE5D8F12D8CEEC700E7DD93 /* PropertyDetailsView.swift */,
+				9CE5D8FB2D8CF0F800E7DD93 /* Components.swift */,
 				A0983A612B6AB1D80072444B /* Wholesale-Flip-Info.plist */,
+				A09CCB9C2A266FBD003248DB /* InitialView.swift */,
 				A09CCB9E2A266FBF003248DB /* Assets.xcassets */,
 				A09CCBA02A266FBF003248DB /* Preview Content */,
 			);
@@ -201,7 +225,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1430;
-				LastUpgradeCheck = 1520;
+				LastUpgradeCheck = 1610;
 				TargetAttributes = {
 					A09CCB962A266FBD003248DB = {
 						CreatedOnToolsVersion = 14.3;
@@ -271,7 +295,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				A09CCB9D2A266FBD003248DB /* InitialView.swift in Sources */,
+				9CE5D8F62D8CEF0600E7DD93 /* ResultsView.swift in Sources */,
+				9CE5D8FA2D8CF01B00E7DD93 /* AppViewModel.swift in Sources */,
 				A0983A5D2B6AAFB70072444B /* SplashPage.swift in Sources */,
+				9CE5D8F22D8CEEC700E7DD93 /* PropertyDetailsView.swift in Sources */,
+				9C7986B82D8DC8B600464AD0 /* PaywallMaxView.swift in Sources */,
+				9CE5D8F82D8CEF4C00E7DD93 /* MainTabView.swift in Sources */,
+				9CE5D8F42D8CEEE900E7DD93 /* ExpensesView.swift in Sources */,
+				9C7986B62D8DC5AF00464AD0 /* PaywallView.swift in Sources */,
+				9CE5D8FC2D8CF0F800E7DD93 /* Components.swift in Sources */,
 				A09CCB9B2A266FBD003248DB /* Wholesale_FlipApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -313,6 +345,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -374,6 +407,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -500,7 +534,6 @@
 		A09CCBBF2A266FBF003248DB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -520,7 +553,6 @@
 		A09CCBC02A266FBF003248DB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -540,7 +572,6 @@
 		A09CCBC22A266FBF003248DB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = L9MQN7GDTN;
@@ -558,7 +589,6 @@
 		A09CCBC32A266FBF003248DB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = L9MQN7GDTN;
@@ -620,7 +650,7 @@
 			repositoryURL = "https://github.com/googleads/swift-package-manager-google-mobile-ads.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 10.14.0;
+				minimumVersion = 12.2.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

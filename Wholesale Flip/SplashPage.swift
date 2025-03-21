@@ -20,3 +20,4 @@ struct SplashPage_Previews: PreviewProvider {
         SplashPage()
     }
 }
+

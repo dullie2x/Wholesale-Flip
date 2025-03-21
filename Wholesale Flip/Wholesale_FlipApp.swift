@@ -1,10 +1,3 @@
-//
-//  Wholesale_FlipApp.swift
-//  Wholesale Flip
-//
-//  Created by Abdulmalik Ariyo on 5/30/23.
-//
-
 import SwiftUI
 import GoogleMobileAds
 
@@ -27,42 +20,52 @@ struct Wholesale_FlipApp: App {
                         }
                     }
             } else {
-                InitialView()
+                MainTabView()
             }
         }
     }
 }
 
-class AppDelegate: NSObject, UIApplicationDelegate, GADFullScreenContentDelegate {
-    var appOpenAd: GADAppOpenAd?
+// Class for App Delegate with ad implementation
+class AppDelegate: NSObject, UIApplicationDelegate, FullScreenContentDelegate {
+    var appOpenAd: AppOpenAd?
     
     //let adUnitID = "ca-app-pub-3940256099942544/5575463023"
     let adUnitID = "ca-app-pub-3883739672732267/3331636077"
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-        GADMobileAds.sharedInstance().start(completionHandler: nil)
-        //GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers = [ "4da0971c9044fbe31d76acce10046d83" ]
+        MobileAds.shared.start(completionHandler: nil)
+        //MobileAds.shared.requestConfiguration.testDeviceIdentifiers = [ "4da0971c9044fbe31d76acce10046d83" ]
         loadAd()
         return true
     }
 
     func loadAd() {
-        let request = GADRequest()
-        GADAppOpenAd.load(withAdUnitID: adUnitID, request: request, orientation: UIInterfaceOrientation.portrait, completionHandler: { [self] (ad, error) in
-            if error != nil {
+        let request = Request()
+        // Updated API for loading app open ads in SDK 12.2
+        AppOpenAd.load(with: adUnitID,
+                      request: request) { [weak self] ad, error in
+            guard let self = self else { return }
+            
+            if let error = error {
+                print("Failed to load app open ad: \(error)")
                 return
             }
-            appOpenAd = ad
-            appOpenAd?.fullScreenContentDelegate = self
-            if let ad = appOpenAd {
-                ad.present(fromRootViewController: UIApplication.shared.windows.first!.rootViewController!)
+            
+            self.appOpenAd = ad
+            self.appOpenAd?.fullScreenContentDelegate = self
+            
+            // Updated way to get root view controller
+            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+               let rootViewController = windowScene.windows.first?.rootViewController,
+               let ad = self.appOpenAd {
+                ad.present(from: rootViewController)
             }
-        })
+        }
     }
 
-    // GADFullScreenContentDelegate methods
-    func adDidDismissFullScreenContent(_ ad: GADFullScreenPresentingAd) {
+    // FullScreenContentDelegate methods
+    func adDidDismissFullScreenContent(_ ad: FullScreenPresentingAd) {
         appOpenAd = nil
     }
 }
-
