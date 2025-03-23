@@ -1,10 +1,10 @@
 import SwiftUI
 
-
 struct ExpensesView: View {
     @ObservedObject var viewModel: AppViewModel
     @FocusState private var focusedField: AppViewModel.FieldFocus?
     @State private var animateFields = false
+    @State private var showingPaywallView = false
     @Environment(\.colorScheme) private var colorScheme
     
     // Create a binding between the view model's activeFocus and the @FocusState
@@ -28,6 +28,9 @@ struct ExpensesView: View {
                     subtitle: "Let's set your costs and profit goals"
                 )
                 
+                // Show property change notice if needed
+                recalculationNotice
+                
                 // Input fields section
                 inputFieldsSection
                 
@@ -35,6 +38,15 @@ struct ExpensesView: View {
                 if viewModel.arvSalePrice > 0 {
                     expenseSummarySection
                     quickTipSection
+                } else if viewModel.hasValidCalculation && viewModel.propertyInputsChanged {
+                    // Show recalculation needed message
+                    TipCard(
+                        title: "Property Values Changed",
+                        content: "Head back to the Property tab and press 'Calculate' to update your results with the new property values.",
+                        primaryColor: Color("Gold"),
+                        secondaryColor: Color("AppTeal"),
+                        icon: "arrow.left.circle.fill"
+                    )
                 } else {
                     // Friendly tip card when no calculations yet
                     TipCard(
@@ -71,6 +83,32 @@ struct ExpensesView: View {
                 withAnimation(.easeOut(duration: 0.5)) {
                     animateFields = true
                 }
+            }
+        }
+        .sheet(isPresented: $showingPaywallView) {
+            PaywallView()
+        }
+    }
+    
+    // Recalculation Notice
+    private var recalculationNotice: some View {
+        Group {
+            if viewModel.hasValidCalculation && viewModel.propertyInputsChanged {
+                HStack {
+                    Image(systemName: "exclamationmark.triangle.fill")
+                        .foregroundColor(Color("Gold"))
+                    
+                    Text("Property values changed - recalculation needed")
+                        .font(.system(size: 12, design: .rounded))
+                        .foregroundColor(Color("NavyBlue"))
+                    
+                    Spacer()
+                    
+                }
+                .padding(8)
+                .background(Color("Gold").opacity(0.1))
+                .cornerRadius(8)
+                .padding(.bottom, 5)
             }
         }
     }
@@ -258,6 +296,8 @@ struct ExpensesView: View {
     }
 }
 
+
+
 // Dark mode compatible welcome header
 struct WelcomeHeader: View {
     let icon: String
@@ -304,8 +344,41 @@ struct WelcomeHeader: View {
         )
     }
 }
-
-
+//struct ExpenseCard: View {
+//    let title: String
+//    let value: String
+//    let percentage: String
+//    let icon: String
+//    let iconColor: Color
+//    
+//    var body: some View {
+//        HStack {
+//            Image(systemName: icon)
+//                .foregroundColor(iconColor)
+//                .font(.system(size: 20))
+//                .frame(width: 28, height: 28)
+//            
+//            VStack(alignment: .leading, spacing: 2) {
+//                Text(title)
+//                    .font(.system(.subheadline, design: .rounded))
+//                    .foregroundColor(Color("NavyBlue").opacity(0.7))
+//                
+//                if !percentage.isEmpty {
+//                    Text(percentage)
+//                        .font(.system(.caption, design: .rounded))
+//                        .foregroundColor(Color("NavyBlue").opacity(0.5))
+//                }
+//            }
+//            
+//            Spacer()
+//            
+//            Text(value)
+//                .font(.system(.headline, design: .rounded))
+//                .foregroundColor(Color("NavyBlue"))
+//        }
+//        .padding(.vertical, 10)
+//    }
+//}
 
 struct ExpensesView_Previews: PreviewProvider {
     static var previews: some View {

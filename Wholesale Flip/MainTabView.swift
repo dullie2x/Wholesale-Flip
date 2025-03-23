@@ -7,6 +7,7 @@ struct MainTabView: View {
     
     var body: some View {
         TabView(selection: $selectedTab) {
+            // Property Tab - Always accessible
             NavigationView {
                 PropertyDetailsView(viewModel: viewModel)
             }
@@ -15,6 +16,7 @@ struct MainTabView: View {
             }
             .tag(0)
             
+            // Expenses Tab - May show paywall overlay
             NavigationView {
                 ExpensesView(viewModel: viewModel)
             }
@@ -22,7 +24,9 @@ struct MainTabView: View {
                 Label("Expenses", systemImage: "dollarsign.circle.fill")
             }
             .tag(1)
+
             
+            // Results Tab - May show paywall overlay
             NavigationView {
                 ResultsView(viewModel: viewModel)
             }
@@ -30,6 +34,7 @@ struct MainTabView: View {
                 Label("Results", systemImage: "chart.pie.fill")
             }
             .tag(2)
+
         }
         .accentColor(Color("AppTeal"))
         .onAppear {
@@ -58,6 +63,13 @@ struct MainTabView: View {
             // Add subtle haptic feedback when changing tabs
             let generator = UIImpactFeedbackGenerator(style: .light)
             generator.impactOccurred()
+        }
+        // Add sheet presentations for paywalls
+        .sheet(isPresented: $viewModel.showPaywall) {
+            PaywallView()
+        }
+        .sheet(isPresented: $viewModel.showMaxReachedPaywall) {
+            PaywallMaxView()
         }
     }
 }

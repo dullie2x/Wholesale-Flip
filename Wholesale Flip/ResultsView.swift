@@ -1,9 +1,9 @@
 import SwiftUI
 
-
 struct ResultsView: View {
     @ObservedObject var viewModel: AppViewModel
     @State private var showBreakdown = false
+    @State private var showingPaywallView = false
     @Environment(\.colorScheme) private var colorScheme
     
     var body: some View {
@@ -15,6 +15,9 @@ struct ResultsView: View {
                     title: "Deal Analysis",
                     subtitle: "Here's your property breakdown"
                 )
+                
+                // Show property change notice if needed
+                recalculationNotice
                 
                 if viewModel.arvSalePrice > 0 {
                     // Main result cards
@@ -158,6 +161,15 @@ struct ResultsView: View {
                         }
                         .transition(.move(edge: .top).combined(with: .opacity))
                     }
+                } else if viewModel.hasValidCalculation && viewModel.propertyInputsChanged {
+                    // Show recalculation needed message
+                    TipCard(
+                        title: "Property Values Changed",
+                        content: "Head back to the Property tab and press 'Calculate' to update your results with the new property values.",
+                        primaryColor: Color("Gold"),
+                        secondaryColor: Color("AppTeal"),
+                        icon: "arrow.left.circle.fill"
+                    )
                 } else {
                     // No results view
                     TipCard(
@@ -186,6 +198,32 @@ struct ResultsView: View {
             }
         }
         .hideKeyboardWhenTappedAround()
+        .sheet(isPresented: $showingPaywallView) {
+            PaywallView()
+        }
+    }
+    
+    // Recalculation Notice
+    private var recalculationNotice: some View {
+        Group {
+            if viewModel.hasValidCalculation && viewModel.propertyInputsChanged {
+                HStack {
+                    Image(systemName: "exclamationmark.triangle.fill")
+                        .foregroundColor(Color("Gold"))
+                    
+                    Text("Property values changed - recalculation needed")
+                        .font(.system(size: 12, design: .rounded))
+                        .foregroundColor(Color("NavyBlue"))
+                    
+                    Spacer()
+                    
+                }
+                .padding(8)
+                .background(Color("Gold").opacity(0.1))
+                .cornerRadius(8)
+                .padding(.bottom, 5)
+            }
+        }
     }
     
     private func breakdownRow(title: String, value: Double, isSubtraction: Bool = false) -> some View {
@@ -208,24 +246,6 @@ struct ResultsView: View {
                     isSubtraction ? Color("Gold").opacity(0.9) : Color("NavyBlue")
                 )
                 .font(.system(.body, design: .rounded))
-        }
-    }
-}
-
-struct ResultsView_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            NavigationView {
-                ResultsView(viewModel: AppViewModel())
-            }
-            .preferredColorScheme(.light)
-            .previewDisplayName("Light Mode")
-            
-            NavigationView {
-                ResultsView(viewModel: AppViewModel())
-            }
-            .preferredColorScheme(.dark)
-            .previewDisplayName("Dark Mode")
         }
     }
 }

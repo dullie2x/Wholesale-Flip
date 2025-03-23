@@ -3,9 +3,10 @@ import SwiftUI
 struct PropertyDetailsView: View {
     @ObservedObject var viewModel: AppViewModel
     @FocusState private var focusedField: AppViewModel.FieldFocus?
-    @State private var showingExampleAlert = false
     @State private var showingPaywallView = false
+    @State private var showingMaxReachedPaywall = false
     @State private var animateFields = false
+    @State private var showResult = false
     @Environment(\.colorScheme) private var colorScheme
     
     // Create a binding between the view model's activeFocus and the @FocusState
@@ -28,8 +29,14 @@ struct PropertyDetailsView: View {
                 // Property Information Section
                 propertyInputSection
                 
-                // ARV Result Card (if available)
-                if viewModel.arvSalePrice > 0 {
+                // Property Change Warning
+                propertyChangeWarning
+                maxLimitReachedNotice
+                // Calculate Button
+                calculateButton
+                
+                // ARV Result Card (if available and calculation performed)
+                if showResult && viewModel.arvSalePrice > 0 && !viewModel.propertyInputsChanged {
                     ResultCard(
                         title: "After Repair Value (ARV)",
                         value: viewModel.arvSalePrice.currencyFormatted,
@@ -45,10 +52,13 @@ struct PropertyDetailsView: View {
                 // Wholesale fee input
                 wholesaleFeeSection
                 
+                // Calculation counter
+                calculationCounter
+                
                 // Tip card with friendly style
                 TipCard(
                     title: "Quick Tip 💡",
-                    content: "Enter your property's square footage and the local price per square foot to instantly see its After Repair Value (ARV).",
+                    content: "Enter your property's square footage and the local price per square foot, then tap Calculate to see the After Repair Value (ARV).",
                     primaryColor: Color("AppTeal"),
                     secondaryColor: Color("Gold")
                 )
@@ -73,16 +83,6 @@ struct PropertyDetailsView: View {
                 menuButton
             }
         }
-        .alert("Use Sample Property Data?", isPresented: $showingExampleAlert) {
-            Button("Cancel", role: .cancel) { }
-            Button("Let's See It!") {
-                withAnimation {
-                    viewModel.fillExampleData()
-                }
-            }
-        } message: {
-            Text("We'll fill in some sample numbers to help you see how the calculator works.")
-        }
         .onChange(of: focusedField) { newValue in
             viewModel.activeFocus = newValue
         }
@@ -91,15 +91,139 @@ struct PropertyDetailsView: View {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                 withAnimation(.easeOut(duration: 0.5)) {
                     animateFields = true
-                    
                 }
             }
-        }.sheet(isPresented: $showingPaywallView) {
+        }
+        .sheet(isPresented: $showingPaywallView) {
             PaywallView()
+        }
+        .sheet(isPresented: $showingMaxReachedPaywall) {
+            PaywallMaxView()
+        }
+        // Bind to viewModel's paywall state
+        .onChange(of: viewModel.showMaxReachedPaywall) { newValue in
+            showingMaxReachedPaywall = newValue
         }
     }
     
-    // MARK: - Component Views
+    // Property Change Warning
+    private var propertyChangeWarning: some View {
+        Group {
+            if viewModel.hasValidCalculation && viewModel.propertyInputsChanged {
+                HStack {
+                    Image(systemName: "exclamationmark.triangle.fill")
+                        .foregroundColor(Color("Gold"))
+                    
+                    Text("Property values changed - press 'Calculate' below to update results")
+                        .font(.system(size: 12, design: .rounded))
+                        .foregroundColor(Color("NavyBlue"))
+                    
+                    Spacer()
+                }
+                .padding(8)
+                .background(Color("Gold").opacity(0.1))
+                .cornerRadius(8)
+                .padding(.bottom, 5)
+            }
+        }
+    }
+    // Max Calculation Limit Reached Notice
+    private var maxLimitReachedNotice: some View {
+        Group {
+            if viewModel.hasReachedCalculationLimit && !viewModel.isPremiumUser {
+                VStack(alignment: .leading, spacing: 10) {
+                    HStack {
+                        Image(systemName: "exclamationmark.triangle.fill")
+                            .foregroundColor(.red)
+
+                        Text("You've hit your max free calculations for the day.")
+                            .font(.system(size: 12, design: .rounded))
+                            .foregroundColor(Color("NavyBlue"))
+
+                        Spacer()
+                    }
+
+                    Button(action: {
+                        viewModel.showMaxReachedPaywall = true
+                    }) {
+                        Text("Upgrade")
+                            .font(.system(size: 14, weight: .semibold, design: .rounded))
+                            .foregroundColor(.white)
+                            .padding(.vertical, 8)
+                            .padding(.horizontal, 20)
+                            .background(Color("Gold"))
+                            .cornerRadius(10)
+                            .shadow(color: Color("Gold").opacity(0.3), radius: 3, x: 0, y: 2)
+                    }
+                }
+                .padding(12)
+                .background(Color.red.opacity(0.08))
+                .cornerRadius(12)
+                .padding(.bottom, 8)
+            }
+        }
+    }
+
+    // Calculate button
+    private var calculateButton: some View {
+        Button(action: {
+            // Hide keyboard
+            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+
+            // Validate inputs
+            guard !viewModel.squareFootage.isEmpty,
+                  !viewModel.arvPricePerSquareFoot.isEmpty else { return }
+
+            // Only show paywall if they've already used 3 calcs (meaning this is the 4th tap)
+            if viewModel.calculationsUsed >= viewModel.maxFreeCalculations && !viewModel.isPremiumUser {
+                // show paywall and exit early
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                    showingMaxReachedPaywall = true
+                }
+                return
+            }
+
+            // Proceed with calculation
+            viewModel.performCalculation()
+
+            withAnimation {
+                showResult = true
+            }
+
+        }) {
+            HStack {
+                Image(systemName: "function")
+                    .font(.system(size: 18))
+                Text("Calculate")
+                    .font(.system(size: 18, weight: .medium, design: .rounded))
+            }
+            .foregroundColor(.white)
+            .padding(.horizontal, 30)
+            .padding(.vertical, 14)
+            .background(
+                LinearGradient(
+                    gradient: Gradient(colors: [Color("AppTeal"), Color("AppTeal").opacity(0.8)]),
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                )
+            )
+            .cornerRadius(15)
+            .shadow(color: Color("AppTeal").opacity(0.4), radius: 5, x: 0, y: 3)
+        }
+        .padding(.vertical, 5)
+        .disabled(
+            viewModel.squareFootage.isEmpty ||
+            viewModel.arvPricePerSquareFoot.isEmpty ||
+            (viewModel.hasReachedCalculationLimit && !viewModel.isPremiumUser)
+        )
+        .opacity(
+            (viewModel.squareFootage.isEmpty ||
+             viewModel.arvPricePerSquareFoot.isEmpty ||
+             (viewModel.hasReachedCalculationLimit && !viewModel.isPremiumUser)) ? 0.6 : 1
+        )
+
+    }
+
     
     // Welcome header with animation
     private var welcomeHeader: some View {
@@ -200,6 +324,12 @@ struct PropertyDetailsView: View {
                 .shadow(color: Color("NavyBlue").opacity(0.07),
                 radius: 10, x: 0, y: 5)
         )
+        .onChange(of: viewModel.squareFootage) { newValue in
+            showResult = false
+        }
+        .onChange(of: viewModel.arvPricePerSquareFoot) { newValue in
+            showResult = false
+        }
     }
     
     // Styled Divider
@@ -240,18 +370,40 @@ struct PropertyDetailsView: View {
         )
     }
     
+    // Calculation Counter
+    private var calculationCounter: some View {
+        HStack {
+            Spacer()
+            
+            HStack(spacing: 6) {
+                Image(systemName: "function")
+                    .font(.system(size: 14))
+                    .foregroundColor(Color("AppTeal"))
+                
+                Text("\(min(viewModel.calculationsUsed, viewModel.maxFreeCalculations)) of \(viewModel.maxFreeCalculations) free calculations used")
+                    .font(.system(size: 14, design: .rounded))
+                    .foregroundColor(Color("NavyBlue").opacity(0.7))
+            }
+            .padding(.vertical, 8)
+            .padding(.horizontal, 12)
+            .background(
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(Color("CardBackground"))
+                    .shadow(color: Color("NavyBlue").opacity(0.07), radius: 5, x: 0, y: 2)
+            )
+        }
+        .padding(.horizontal, 5)
+        .padding(.vertical, 5)
+    }
+
+    
     // Menu Button
     private var menuButton: some View {
         Menu {
             Button(action: {
-                showingExampleAlert = true
-            }) {
-                Label("Use Sample Property", systemImage: "doc.fill")
-            }
-            
-            Button(action: {
                 withAnimation {
                     viewModel.reset()
+                    showResult = false
                 }
             }) {
                 Label("Start Fresh", systemImage: "arrow.counterclockwise")
@@ -266,21 +418,22 @@ struct PropertyDetailsView: View {
                 Label("Upgrade to Premium", systemImage: "star.fill")
                     .foregroundColor(Color("Gold"))
             }
+            
+            #if DEBUG
+            Divider()
+            
+            Button(action: {
+                // Reset calculation count (for testing)
+                viewModel.resetCalculationCount()
+            }) {
+                Label("Reset Calculation Count", systemImage: "arrow.triangle.2.circlepath")
+            }
+            #endif
         } label: {
             Image(systemName: "ellipsis.circle.fill")
                 .foregroundColor(Color("AppTeal"))
                 .font(.system(size: 22))
         }
-    }
-    
-    // Original Tip Card for backward compatibility
-    private func tipCard(title: String, content: String, primaryColor: Color, secondaryColor: Color) -> some View {
-        TipCard(
-            title: title,
-            content: content,
-            primaryColor: primaryColor,
-            secondaryColor: secondaryColor
-        )
     }
 }
 
@@ -414,3 +567,23 @@ struct PropertyDetailsView_Previews: PreviewProvider {
         }
     }
 }
+
+// Extension to support the hideKeyboardWhenTappedAround modifier
+//extension View {
+//    func hideKeyboardWhenTappedAround() -> some View {
+//        return self.onTapGesture {
+//            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+//        }
+//    }
+//}
+//
+//// Currency formatting extension (assumed to be defined elsewhere)
+//extension Double {
+//    var currencyFormatted: String {
+//        let formatter = NumberFormatter()
+//        formatter.numberStyle = .currency
+//        formatter.minimumFractionDigits = 0
+//        formatter.maximumFractionDigits = 0
+//        return formatter.string(from: NSNumber(value: self)) ?? "$0"
+//    }
+//}
