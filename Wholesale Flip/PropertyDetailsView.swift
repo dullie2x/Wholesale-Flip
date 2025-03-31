@@ -135,16 +135,25 @@ struct PropertyDetailsView: View {
                     HStack {
                         Image(systemName: "exclamationmark.triangle.fill")
                             .foregroundColor(.red)
-
+                        
                         Text("You've hit your max free calculations for the day.")
                             .font(.system(size: 12, design: .rounded))
                             .foregroundColor(Color("NavyBlue"))
-
+                        
                         Spacer()
                     }
-
+                    
                     Button(action: {
-                        viewModel.showMaxReachedPaywall = true
+                        // Delay slightly to ensure proper presentation
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                            // Make sure keyboard is dismissed
+                            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder),
+                                                          to: nil, from: nil, for: nil)
+                            
+                            // Set both states to ensure proper presentation
+                            self.showingMaxReachedPaywall = true
+                            viewModel.showMaxReachedPaywall = true
+                        }
                     }) {
                         Text("Upgrade")
                             .font(.system(size: 14, weight: .semibold, design: .rounded))
@@ -163,17 +172,17 @@ struct PropertyDetailsView: View {
             }
         }
     }
-
+    
     // Calculate button
     private var calculateButton: some View {
         Button(action: {
             // Hide keyboard
             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-
+            
             // Validate inputs
             guard !viewModel.squareFootage.isEmpty,
                   !viewModel.arvPricePerSquareFoot.isEmpty else { return }
-
+            
             // Only show paywall if they've already used 3 calcs (meaning this is the 4th tap)
             if viewModel.calculationsUsed >= viewModel.maxFreeCalculations && !viewModel.isPremiumUser {
                 // show paywall and exit early
@@ -182,14 +191,14 @@ struct PropertyDetailsView: View {
                 }
                 return
             }
-
+            
             // Proceed with calculation
             viewModel.performCalculation()
-
+            
             withAnimation {
                 showResult = true
             }
-
+            
         }) {
             HStack {
                 Image(systemName: "function")
@@ -221,9 +230,9 @@ struct PropertyDetailsView: View {
              viewModel.arvPricePerSquareFoot.isEmpty ||
              (viewModel.hasReachedCalculationLimit && !viewModel.isPremiumUser)) ? 0.6 : 1
         )
-
+        
     }
-
+    
     
     // Welcome header with animation
     private var welcomeHeader: some View {
@@ -257,7 +266,7 @@ struct PropertyDetailsView: View {
                     )
                 )
                 .shadow(color: Color("NavyBlue").opacity(0.07),
-                radius: 10, x: 0, y: 5)
+                        radius: 10, x: 0, y: 5)
         )
     }
     
@@ -278,7 +287,7 @@ struct PropertyDetailsView: View {
                 isFocused: focusedField == .squareFootage,
                 onTap: { activeFocusBinding.wrappedValue = .squareFootage }
             )
-            .focused($focusedField, equals: .squareFootage)
+                .focused($focusedField, equals: .squareFootage)
             
             // ARV Price Field
             let arvPriceField = ModernTextField(
@@ -289,7 +298,7 @@ struct PropertyDetailsView: View {
                 isFocused: focusedField == .arvPrice,
                 onTap: { activeFocusBinding.wrappedValue = .arvPrice }
             )
-            .focused($focusedField, equals: .arvPrice)
+                .focused($focusedField, equals: .arvPrice)
             
             // Rehab Cost Field
             let rehabCostField = ModernTextField(
@@ -300,7 +309,7 @@ struct PropertyDetailsView: View {
                 isFocused: focusedField == .rehab,
                 onTap: { activeFocusBinding.wrappedValue = .rehab }
             )
-            .focused($focusedField, equals: .rehab)
+                .focused($focusedField, equals: .rehab)
             
             // Apply animations
             Group {
@@ -322,7 +331,7 @@ struct PropertyDetailsView: View {
             RoundedRectangle(cornerRadius: 16)
                 .fill(Color("CardBackground"))
                 .shadow(color: Color("NavyBlue").opacity(0.07),
-                radius: 10, x: 0, y: 5)
+                        radius: 10, x: 0, y: 5)
         )
         .onChange(of: viewModel.squareFootage) { newValue in
             showResult = false
@@ -366,7 +375,7 @@ struct PropertyDetailsView: View {
             RoundedRectangle(cornerRadius: 16)
                 .fill(Color("CardBackground"))
                 .shadow(color: Color("NavyBlue").opacity(0.07),
-                radius: 10, x: 0, y: 5)
+                        radius: 10, x: 0, y: 5)
         )
     }
     
@@ -380,9 +389,24 @@ struct PropertyDetailsView: View {
                     .font(.system(size: 14))
                     .foregroundColor(Color("AppTeal"))
                 
-                Text("\(min(viewModel.calculationsUsed, viewModel.maxFreeCalculations)) of \(viewModel.maxFreeCalculations) free calculations used")
-                    .font(.system(size: 14, design: .rounded))
-                    .foregroundColor(Color("NavyBlue").opacity(0.7))
+                if viewModel.isPremiumUser {
+                    Text("Unlimited calculations")
+                        .font(.system(size: 14, design: .rounded))
+                        .foregroundColor(Color("Gold").opacity(0.9))
+                        .bold()
+                } else {
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("\(min(viewModel.calculationsUsed, viewModel.maxFreeCalculations)) of \(viewModel.maxFreeCalculations) free calculations used")
+                            .font(.system(size: 14, design: .rounded))
+                            .foregroundColor(Color("NavyBlue").opacity(0.7))
+                        
+                        if viewModel.calculationsUsed > 0 {
+                            Text(viewModel.resetMessage)
+                                .font(.system(size: 12, design: .rounded))
+                                .foregroundColor(Color("NavyBlue").opacity(0.6))
+                        }
+                    }
+                }
             }
             .padding(.vertical, 8)
             .padding(.horizontal, 12)
@@ -395,7 +419,8 @@ struct PropertyDetailsView: View {
         .padding(.horizontal, 5)
         .padding(.vertical, 5)
     }
-
+    
+    
     
     // Menu Button
     private var menuButton: some View {
@@ -412,23 +437,41 @@ struct PropertyDetailsView: View {
             Divider()
             
             Button(action: {
-                // Show paywall view
-                showingPaywallView = true
+                // Small delay to avoid potential state conflicts
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    // Hide keyboard first if it's showing
+                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder),
+                                                   to: nil, from: nil, for: nil)
+                    
+                    // Then show paywall view
+                    self.showingPaywallView = true
+                }
             }) {
                 Label("Upgrade to Premium", systemImage: "star.fill")
                     .foregroundColor(Color("Gold"))
             }
             
-            #if DEBUG
-            Divider()
+//#if DEBUG
+//            Divider()
+//            
+//            Button(action: {
+//                // Toggle between premium and free user
+//                viewModel.isPremiumUser.toggle()
+//            }) {
+//                Label(
+//                    viewModel.isPremiumUser ? "Set as Free User" : "Set as Premium User",
+//                    systemImage: viewModel.isPremiumUser ? "person.crop.circle.badge.xmark" : "person.crop.circle.badge.checkmark"
+//                )
+//            }
+//            
+//            Button(action: {
+//                // Reset calculation count (for testing)
+//                viewModel.resetCalculationCount()
+//            }) {
+//                Label("Reset Calculation Count", systemImage: "arrow.triangle.2.circlepath")
+//            }
+//#endif
             
-            Button(action: {
-                // Reset calculation count (for testing)
-                viewModel.resetCalculationCount()
-            }) {
-                Label("Reset Calculation Count", systemImage: "arrow.triangle.2.circlepath")
-            }
-            #endif
         } label: {
             Image(systemName: "ellipsis.circle.fill")
                 .foregroundColor(Color("AppTeal"))
@@ -480,7 +523,7 @@ struct ResultCard: View {
             RoundedRectangle(cornerRadius: 16)
                 .fill(Color("CardBackground"))
                 .shadow(color: Color("NavyBlue").opacity(0.07),
-                radius: 10, x: 0, y: 5)
+                        radius: 10, x: 0, y: 5)
         )
     }
 }

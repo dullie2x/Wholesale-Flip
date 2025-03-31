@@ -1,18 +1,25 @@
+//
+//  Wholesale.swift
+//  Wholesale Flip
+//
+//  Created by Gbolade Ariyo on 3/31/25.
+//
+
+
+//  Wholesale_FlipApp.swift
 import SwiftUI
 import GoogleMobileAds
 
 @main
 struct Wholesale_FlipApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-    @State private var showSplash = true // Add a boolean state variable
+    @State private var showSplash = true
 
     var body: some Scene {
         WindowGroup {
-            // Use a conditional to show either the splash screen or the main app content
             if showSplash {
                 SplashPage()
                     .onAppear {
-                        // Automatically dismiss the splash screen after 2 seconds
                         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                             withAnimation {
                                 showSplash = false
@@ -26,7 +33,6 @@ struct Wholesale_FlipApp: App {
     }
 }
 
-// Class for App Delegate with ad implementation
 class AppDelegate: NSObject, UIApplicationDelegate, FullScreenContentDelegate {
     var appOpenAd: AppOpenAd?
     let adUnitID = "ca-app-pub-3883739672732267/3331636077"
@@ -35,21 +41,19 @@ class AppDelegate: NSObject, UIApplicationDelegate, FullScreenContentDelegate {
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         MobileAds.shared.start(completionHandler: nil)
 
-        // Only load ads if user is NOT premium
         let isPremium = UserDefaults.standard.bool(forKey: "isPremiumUser")
         if !isPremium {
             loadAd()
         } else {
             print("👑 Premium user — skipping app open ad.")
         }
-
         return true
     }
 
     func loadAd() {
         let request = Request()
 
-        AppOpenAd.load(with: adUnitID, request: request) { [weak self] ad, error in
+        AppOpenAd.load(withAdUnitID: adUnitID, request: request) { [weak self] ad, error in
             guard let self = self else { return }
 
             if let error = error {
@@ -61,9 +65,11 @@ class AppDelegate: NSObject, UIApplicationDelegate, FullScreenContentDelegate {
             self.appOpenAd?.fullScreenContentDelegate = self
 
             if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-               let rootVC = windowScene.windows.first?.rootViewController,
+               let rootVC = windowScene.windows.first(where: { $0.isKeyWindow })?.rootViewController,
                let ad = self.appOpenAd {
-                ad.present(from: rootVC)
+                ad.present(fromRootViewController: rootVC)
+            } else {
+                print("⚠️ Unable to present app open ad — no rootViewController found.")
             }
         }
     }
@@ -72,4 +78,3 @@ class AppDelegate: NSObject, UIApplicationDelegate, FullScreenContentDelegate {
         appOpenAd = nil
     }
 }
-
