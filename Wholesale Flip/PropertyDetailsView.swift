@@ -8,6 +8,8 @@ struct PropertyDetailsView: View {
     @State private var animateFields = false
     @State private var showResult = false
     @Environment(\.colorScheme) private var colorScheme
+    @EnvironmentObject private var reviewManager: AppReviewManager
+
     
     // Create a binding between the view model's activeFocus and the @FocusState
     private var activeFocusBinding: Binding<AppViewModel.FieldFocus?> {
@@ -173,9 +175,12 @@ struct PropertyDetailsView: View {
         }
     }
     
-    // Calculate button
     private var calculateButton: some View {
         Button(action: {
+            // Add haptic feedback
+            let generator = UIImpactFeedbackGenerator(style: .medium)
+            generator.impactOccurred()
+            
             // Hide keyboard
             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
             
@@ -198,6 +203,9 @@ struct PropertyDetailsView: View {
             withAnimation {
                 showResult = true
             }
+            
+            // Register successful calculation with the review manager
+            reviewManager.registerSuccessfulCalculation()
             
         }) {
             HStack {
@@ -230,7 +238,6 @@ struct PropertyDetailsView: View {
              viewModel.arvPricePerSquareFoot.isEmpty ||
              (viewModel.hasReachedCalculationLimit && !viewModel.isPremiumUser)) ? 0.6 : 1
         )
-        
     }
     
     

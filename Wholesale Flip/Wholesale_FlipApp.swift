@@ -1,14 +1,17 @@
 import SwiftUI
 import GoogleMobileAds
+import StoreKit
 
 @main
 struct Wholesale_FlipApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-    @State private var showSplash = true // Add a boolean state variable
-
+    @State private var showSplash = true
+    
+    // Create app review manager as a StateObject
+    @StateObject private var reviewManager = AppReviewManager()
+    
     var body: some Scene {
         WindowGroup {
-            // Use a conditional to show either the splash screen or the main app content
             if showSplash {
                 SplashPage()
                     .onAppear {
@@ -21,6 +24,82 @@ struct Wholesale_FlipApp: App {
                     }
             } else {
                 MainTabView()
+                    .environmentObject(reviewManager)
+            }
+        }
+    }
+}
+
+// Dedicated review manager to track user engagement and handle review requests
+class AppReviewManager: ObservableObject {
+    // Track if we've already requested a review in this app version
+    private var hasRequestedReviewInCurrentVersion: Bool {
+        get {
+            let lastVersionPrompted = UserDefaults.standard.string(forKey: "lastVersionPromptedForReview") ?? ""
+            let currentVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
+            return lastVersionPrompted == currentVersion
+        }
+        set {
+            if newValue {
+                let currentVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
+                UserDefaults.standard.set(currentVersion, forKey: "lastVersionPromptedForReview")
+            }
+        }
+    }
+    
+    // Track successful calculations count
+    private var successfulCalculationsCount: Int {
+        get { UserDefaults.standard.integer(forKey: "successfulCalculationsCount") }
+        set { UserDefaults.standard.set(newValue, forKey: "successfulCalculationsCount") }
+    }
+    
+    // Track if user has submitted a review
+    private var hasEverSubmittedReview: Bool {
+        get { UserDefaults.standard.bool(forKey: "hasSubmittedReview") }
+        set { UserDefaults.standard.set(newValue, forKey: "hasSubmittedReview") }
+    }
+    
+    // Called when a calculation is performed successfully
+    func registerSuccessfulCalculation() {
+        successfulCalculationsCount += 1
+        
+        // Check if we should request a review
+        checkAndRequestReviewIfAppropriate()
+    }
+    
+    // Logic to determine if and when to request a review
+    private func checkAndRequestReviewIfAppropriate() {
+        // Skip if user has already been prompted in this version
+        guard !hasRequestedReviewInCurrentVersion else { return }
+        
+        // Core logic for when to show the review prompt
+        // Option 1: After 2 successful calculations for new users
+        if !hasEverSubmittedReview && successfulCalculationsCount >= 2 {
+            requestReview()
+            return
+        }
+        
+        // Option 2: After 5 successful calculations for returning users
+        if hasEverSubmittedReview && successfulCalculationsCount >= 5 {
+            requestReview()
+            return
+        }
+    }
+    
+    // Request the review and update tracking
+    private func requestReview() {
+        // Small delay to ensure the user has seen their calculation results first
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            // Request the review
+            if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+                SKStoreReviewController.requestReview(in: scene)
+                
+                // Mark that we've requested a review in this version
+                self.hasRequestedReviewInCurrentVersion = true
+                
+                // Assume the user submitted a review (since we can't actually track this)
+                // This will ensure we don't ask too frequently
+                self.hasEverSubmittedReview = true
             }
         }
     }
@@ -72,4 +151,3 @@ class AppDelegate: NSObject, UIApplicationDelegate, FullScreenContentDelegate {
         appOpenAd = nil
     }
 }
-

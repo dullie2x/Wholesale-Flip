@@ -2,6 +2,7 @@ import SwiftUI
 
 struct PaywallView: View {
     @Environment(\.dismiss) var dismiss
+    @Environment(\.colorScheme) private var colorScheme
     @State private var animate = false
     @State private var showThankYou = false
     @State private var isPremiumUser: Bool = false
@@ -9,8 +10,16 @@ struct PaywallView: View {
     
     var body: some View {
         ZStack {
+            // Adjust gradient colors based on color scheme
             LinearGradient(
-                gradient: Gradient(colors: [Color("NavyBlue").opacity(0.9), Color("AppTeal").opacity(0.7)]),
+                gradient: Gradient(colors: [
+                    colorScheme == .dark
+                        ? Color("NavyBlue").opacity(0.7)
+                        : Color("NavyBlue").opacity(0.9),
+                    colorScheme == .dark
+                        ? Color("AppTeal").opacity(0.5)
+                        : Color("AppTeal").opacity(0.7)
+                ]),
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
             )
@@ -23,8 +32,8 @@ struct PaywallView: View {
                         Image(systemName: "xmark.circle.fill")
                             .resizable()
                             .frame(width: 30, height: 30)
-                            .foregroundColor(.white.opacity(0.2))
-                            .shadow(radius: 5)
+                            .foregroundColor(.white.opacity(0.3))
+                            .shadow(radius: 3)
                     }
                     .padding(.top, 10)
                     .padding(.trailing, 15)
@@ -40,7 +49,7 @@ struct PaywallView: View {
                     Text("Unlimited Property Calculations")
                         .font(.system(size: 20, weight: .heavy, design: .rounded))
                         .foregroundColor(.white)
-                        .shadow(radius: 5)
+                        .shadow(radius: colorScheme == .dark ? 2 : 5)
                         .multilineTextAlignment(.center)
                 }
 
@@ -50,7 +59,8 @@ struct PaywallView: View {
                     features: ["Unlimited calculations", "No advertisements", "Support development"],
                     highlight: true,
                     animate: $animate,
-                    isProcessing: isProcessing
+                    isProcessing: isProcessing,
+                    colorScheme: colorScheme
                 ) {
                     Task {
                         if isPremiumUser { return }
@@ -141,9 +151,13 @@ struct PaywallView: View {
                         .foregroundColor(.white)
                         .padding(.horizontal, 20)
                         .padding(.vertical, 12)
-                        .background(Color.green.opacity(0.8))
+                        .background(
+                            colorScheme == .dark
+                                ? Color.green.opacity(0.7)
+                                : Color.green.opacity(0.8)
+                        )
                         .cornerRadius(20)
-                        .shadow(radius: 5)
+                        .shadow(radius: colorScheme == .dark ? 2 : 5)
                         .padding(.bottom, 40)
                         .transition(.move(edge: .bottom).combined(with: .opacity))
                         .animation(.easeOut(duration: 0.3), value: showThankYou)
@@ -151,7 +165,7 @@ struct PaywallView: View {
             }
             
             if isProcessing {
-                Color.black.opacity(0.4)
+                Color.black.opacity(colorScheme == .dark ? 0.5 : 0.4)
                     .edgesIgnoringSafeArea(.all)
                 
                 VStack {
@@ -188,12 +202,17 @@ struct PaywallView: View {
 struct FeatureItem: View {
     let icon: String
     let text: String
+    let colorScheme: ColorScheme
     
     var body: some View {
         VStack(spacing: 5) {
             Image(systemName: icon)
                 .font(.system(size: 18))
-                .foregroundColor(Color("AppTeal"))
+                .foregroundColor(
+                    colorScheme == .dark
+                        ? Color("AppTeal").opacity(0.9)
+                        : Color("AppTeal")
+                )
             Text(text)
                 .font(.system(size: 12, design: .rounded))
                 .foregroundColor(.white)
@@ -211,6 +230,7 @@ struct PaywallOption: View {
     let highlight: Bool
     @Binding var animate: Bool
     var isProcessing: Bool = false
+    var colorScheme: ColorScheme
     let action: () -> Void
 
     var body: some View {
@@ -224,7 +244,11 @@ struct PaywallOption: View {
                         
                         Text(price)
                             .font(.system(size: 18, weight: .medium, design: .rounded))
-                            .foregroundColor(Color("Gold"))
+                            .foregroundColor(
+                                colorScheme == .dark
+                                    ? Color("Gold").opacity(0.9)
+                                    : Color("Gold")
+                            )
                     }
                     
                     Spacer()
@@ -232,7 +256,11 @@ struct PaywallOption: View {
                     if highlight {
                         Image(systemName: "star.fill")
                             .font(.system(size: 20))
-                            .foregroundColor(Color("Gold"))
+                            .foregroundColor(
+                                colorScheme == .dark
+                                    ? Color("Gold").opacity(0.9)
+                                    : Color("Gold")
+                            )
                             .scaleEffect(animate ? 1.2 : 1.0)
                             .animation(.easeInOut(duration: 1).repeatForever(), value: animate)
                     }
@@ -243,7 +271,11 @@ struct PaywallOption: View {
                     ForEach(features, id: \.self) { feature in
                         HStack(spacing: 10) {
                             Image(systemName: "checkmark.circle.fill")
-                                .foregroundColor(Color("AppTeal"))
+                                .foregroundColor(
+                                    colorScheme == .dark
+                                        ? Color("AppTeal").opacity(0.9)
+                                        : Color("AppTeal")
+                                )
                                 .font(.system(size: 16))
                             
                             Text(feature)
@@ -268,9 +300,18 @@ struct PaywallOption: View {
                             .foregroundColor(Color("NavyBlue"))
                             .padding(.vertical, 12)
                             .padding(.horizontal, 30)
-                            .background(Color("Gold"))
+                            .background(
+                                colorScheme == .dark
+                                    ? Color("Gold").opacity(0.9)
+                                    : Color("Gold")
+                            )
                             .cornerRadius(25)
-                            .shadow(color: Color("Gold").opacity(0.4), radius: 5, x: 0, y: 2)
+                            .shadow(
+                                color: Color("Gold").opacity(colorScheme == .dark ? 0.3 : 0.4),
+                                radius: colorScheme == .dark ? 3 : 5,
+                                x: 0,
+                                y: 2
+                            )
                     }
                     
                     Spacer()
@@ -280,16 +321,44 @@ struct PaywallOption: View {
             .padding()
             .background(
                 RoundedRectangle(cornerRadius: 16)
-                    .fill(Color("NavyBlue").opacity(0.3))
+                    .fill(
+                        colorScheme == .dark
+                            ? Color("NavyBlue").opacity(0.2)
+                            : Color("NavyBlue").opacity(0.3)
+                    )
                     .overlay(
                         RoundedRectangle(cornerRadius: 16)
-                            .stroke(Color("AppTeal").opacity(0.3), lineWidth: 1)
+                            .stroke(
+                                colorScheme == .dark
+                                    ? Color("AppTeal").opacity(0.2)
+                                    : Color("AppTeal").opacity(0.3),
+                                lineWidth: 1
+                            )
                     )
-                    .shadow(color: Color("NavyBlue").opacity(0.5), radius: 10, x: 0, y: 5)
+                    .shadow(
+                        color: Color("NavyBlue").opacity(colorScheme == .dark ? 0.3 : 0.5),
+                        radius: colorScheme == .dark ? 5 : 10,
+                        x: 0,
+                        y: 5
+                    )
             )
             .scaleEffect(animate && !isProcessing ? 1.03 : 1.0)
             .animation(.easeInOut(duration: 1.5).repeatForever(autoreverses: true), value: animate && !isProcessing)
         }
         .disabled(isProcessing)
+    }
+}
+
+// Preview Provider
+struct PaywallView_Previews: PreviewProvider {
+    static var previews: some View {
+        Group {
+            PaywallView()
+                .previewDisplayName("Light Mode")
+            
+            PaywallView()
+                .preferredColorScheme(.dark)
+                .previewDisplayName("Dark Mode")
+        }
     }
 }

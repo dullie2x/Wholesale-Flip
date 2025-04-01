@@ -12,7 +12,6 @@
 		9C7986B62D8DC5AF00464AD0 /* PaywallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7986B52D8DC5AF00464AD0 /* PaywallView.swift */; };
 		9C7986B82D8DC8B600464AD0 /* PaywallMaxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7986B72D8DC8B600464AD0 /* PaywallMaxView.swift */; };
 		9C9E44702D9B63CB00E9FBBA /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C2A6F2A2D98A87D00A57517 /* StoreKit.framework */; };
-		9C9E44712D9B63CB00E9FBBA /* StoreKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9C2A6F2A2D98A87D00A57517 /* StoreKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9CE5D8F22D8CEEC700E7DD93 /* PropertyDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE5D8F12D8CEEC700E7DD93 /* PropertyDetailsView.swift */; };
 		9CE5D8F42D8CEEE900E7DD93 /* ExpensesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE5D8F32D8CEEE900E7DD93 /* ExpensesView.swift */; };
 		9CE5D8F62D8CEF0600E7DD93 /* ResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE5D8F52D8CEF0600E7DD93 /* ResultsView.swift */; };
@@ -46,20 +45,6 @@
 			remoteInfo = "Wholesale Flip";
 		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		9C9E44722D9B63CB00E9FBBA /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				9C9E44712D9B63CB00E9FBBA /* StoreKit.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		9C2A6F2A2D98A87D00A57517 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
@@ -201,7 +186,6 @@
 				A09CCB932A266FBD003248DB /* Sources */,
 				A09CCB942A266FBD003248DB /* Frameworks */,
 				A09CCB952A266FBD003248DB /* Resources */,
-				9C9E44722D9B63CB00E9FBBA /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -508,6 +492,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Wholesale-Flip-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Profit Flip";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -519,13 +504,14 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 2.01;
 				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Wholesaleflip.Wholesale-Flip";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -545,6 +531,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Wholesale-Flip-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Profit Flip";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -556,13 +543,14 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 2.01;
 				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Wholesaleflip.Wholesale-Flip";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;

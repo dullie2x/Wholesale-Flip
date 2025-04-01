@@ -2,6 +2,7 @@ import SwiftUI
 
 struct PaywallMaxView: View {
     @Environment(\.dismiss) var dismiss
+    @Environment(\.colorScheme) private var colorScheme
     @State private var animate = false
     @State private var showThankYou = false
     @State private var isPremiumUser: Bool = false
@@ -10,7 +11,14 @@ struct PaywallMaxView: View {
     var body: some View {
         ZStack {
             LinearGradient(
-                gradient: Gradient(colors: [Color("Gold").opacity(0.9), Color("NavyBlue").opacity(0.8)]),
+                gradient: Gradient(colors: [
+                    colorScheme == .dark
+                        ? Color("Gold").opacity(0.7)
+                        : Color("Gold").opacity(0.9),
+                    colorScheme == .dark
+                        ? Color("NavyBlue").opacity(0.6)
+                        : Color("NavyBlue").opacity(0.8)
+                ]),
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
             )
@@ -23,8 +31,8 @@ struct PaywallMaxView: View {
                         Image(systemName: "xmark.circle.fill")
                             .resizable()
                             .frame(width: 30, height: 30)
-                            .foregroundColor(.white.opacity(0.2))
-                            .shadow(radius: 5)
+                            .foregroundColor(.white.opacity(0.3))
+                            .shadow(radius: colorScheme == .dark ? 3 : 5)
                     }
                     .padding(.top, 10)
                     .padding(.trailing, 15)
@@ -39,17 +47,26 @@ struct PaywallMaxView: View {
 
                     Image(systemName: "exclamationmark.circle.fill")
                         .font(.system(size: 40))
-                        .foregroundColor(Color("AppTeal"))
+                        .foregroundColor(
+                            colorScheme == .dark
+                                ? Color("AppTeal").opacity(0.9)
+                                : Color("AppTeal")
+                        )
                         .background(Circle().fill(Color.white))
                         .offset(x: 60, y: -55)
-                        .shadow(color: Color.black.opacity(0.2), radius: 4, x: 0, y: 2)
+                        .shadow(
+                            color: Color.black.opacity(colorScheme == .dark ? 0.15 : 0.2),
+                            radius: colorScheme == .dark ? 3 : 4,
+                            x: 0,
+                            y: 2
+                        )
                 }
 
                 VStack(spacing: 8) {
                     Text("Maximum Limit Reached!")
                         .font(.system(size: 22, weight: .heavy, design: .rounded))
                         .foregroundColor(.white)
-                        .shadow(radius: 5)
+                        .shadow(radius: colorScheme == .dark ? 2 : 5)
                         .multilineTextAlignment(.center)
 
                     Text("You've reached the maximum free calculations.\nUpgrade now to continue your property analysis.")
@@ -66,7 +83,13 @@ struct PaywallMaxView: View {
                         .foregroundColor(Color("NavyBlue"))
                         .padding(.horizontal, 12)
                         .padding(.vertical, 4)
-                        .background(Capsule().fill(Color("Gold")))
+                        .background(
+                            Capsule().fill(
+                                colorScheme == .dark
+                                    ? Color("Gold").opacity(0.9)
+                                    : Color("Gold")
+                            )
+                        )
                         .offset(y: 10)
                         .zIndex(1)
 
@@ -80,7 +103,8 @@ struct PaywallMaxView: View {
                         ],
                         highlight: true,
                         animate: $animate,
-                        isProcessing: isProcessing
+                        isProcessing: isProcessing,
+                        colorScheme: colorScheme
                     ) {
                         Task {
                             if isPremiumUser { return }
@@ -178,9 +202,13 @@ struct PaywallMaxView: View {
                         .foregroundColor(.white)
                         .padding(.horizontal, 20)
                         .padding(.vertical, 12)
-                        .background(Color.green.opacity(0.8))
+                        .background(
+                            colorScheme == .dark
+                                ? Color.green.opacity(0.7)
+                                : Color.green.opacity(0.8)
+                        )
                         .cornerRadius(20)
-                        .shadow(radius: 5)
+                        .shadow(radius: colorScheme == .dark ? 3 : 5)
                         .padding(.bottom, 40)
                         .transition(.move(edge: .bottom).combined(with: .opacity))
                         .animation(.easeOut(duration: 0.3), value: showThankYou)
@@ -188,7 +216,7 @@ struct PaywallMaxView: View {
             }
             
             if isProcessing {
-                Color.black.opacity(0.4)
+                Color.black.opacity(colorScheme == .dark ? 0.5 : 0.4)
                     .edgesIgnoringSafeArea(.all)
                 
                 VStack {
@@ -228,6 +256,7 @@ struct PaywallMaxOption: View {
     let highlight: Bool
     @Binding var animate: Bool
     var isProcessing: Bool = false
+    var colorScheme: ColorScheme
     let action: () -> Void
 
     var body: some View {
@@ -241,7 +270,11 @@ struct PaywallMaxOption: View {
                         
                         Text(price)
                             .font(.system(size: 18, weight: .medium, design: .rounded))
-                            .foregroundColor(Color("AppTeal"))
+                            .foregroundColor(
+                                colorScheme == .dark
+                                    ? Color("AppTeal").opacity(0.9)
+                                    : Color("AppTeal")
+                            )
                     }
                     
                     Spacer()
@@ -249,7 +282,11 @@ struct PaywallMaxOption: View {
                     if highlight {
                         Image(systemName: "checkmark.seal.fill")
                             .font(.system(size: 20))
-                            .foregroundColor(Color("AppTeal"))
+                            .foregroundColor(
+                                colorScheme == .dark
+                                    ? Color("AppTeal").opacity(0.9)
+                                    : Color("AppTeal")
+                            )
                             .scaleEffect(animate ? 1.2 : 1.0)
                             .animation(.easeInOut(duration: 1).repeatForever(), value: animate)
                     }
@@ -260,7 +297,11 @@ struct PaywallMaxOption: View {
                     ForEach(features, id: \.self) { feature in
                         HStack(spacing: 10) {
                             Image(systemName: "checkmark.circle.fill")
-                                .foregroundColor(Color("Gold"))
+                                .foregroundColor(
+                                    colorScheme == .dark
+                                        ? Color("Gold").opacity(0.9)
+                                        : Color("Gold")
+                                )
                                 .font(.system(size: 16))
                             
                             Text(feature)
@@ -285,9 +326,18 @@ struct PaywallMaxOption: View {
                             .foregroundColor(Color("NavyBlue"))
                             .padding(.vertical, 12)
                             .padding(.horizontal, 30)
-                            .background(Color("AppTeal"))
+                            .background(
+                                colorScheme == .dark
+                                    ? Color("AppTeal").opacity(0.9)
+                                    : Color("AppTeal")
+                            )
                             .cornerRadius(25)
-                            .shadow(color: Color("AppTeal").opacity(0.4), radius: 5, x: 0, y: 2)
+                            .shadow(
+                                color: Color("AppTeal").opacity(colorScheme == .dark ? 0.3 : 0.4),
+                                radius: colorScheme == .dark ? 3 : 5,
+                                x: 0,
+                                y: 2
+                            )
                     }
                     
                     Spacer()
@@ -297,16 +347,44 @@ struct PaywallMaxOption: View {
             .padding()
             .background(
                 RoundedRectangle(cornerRadius: 16)
-                    .fill(Color("NavyBlue").opacity(0.5))
+                    .fill(
+                        colorScheme == .dark
+                            ? Color("NavyBlue").opacity(0.4)
+                            : Color("NavyBlue").opacity(0.5)
+                    )
                     .overlay(
                         RoundedRectangle(cornerRadius: 16)
-                            .stroke(Color("Gold").opacity(0.3), lineWidth: 1)
+                            .stroke(
+                                colorScheme == .dark
+                                    ? Color("Gold").opacity(0.2)
+                                    : Color("Gold").opacity(0.3),
+                                lineWidth: 1
+                            )
                     )
-                    .shadow(color: Color("NavyBlue").opacity(0.5), radius: 10, x: 0, y: 5)
+                    .shadow(
+                        color: Color("NavyBlue").opacity(colorScheme == .dark ? 0.3 : 0.5),
+                        radius: colorScheme == .dark ? 5 : 10,
+                        x: 0,
+                        y: 5
+                    )
             )
             .scaleEffect(animate && !isProcessing ? 1.03 : 1.0)
             .animation(.easeInOut(duration: 1.5).repeatForever(autoreverses: true), value: animate && !isProcessing)
         }
         .disabled(isProcessing)
+    }
+}
+
+// Preview Provider
+struct PaywallMaxView_Previews: PreviewProvider {
+    static var previews: some View {
+        Group {
+            PaywallMaxView()
+                .previewDisplayName("Light Mode")
+            
+            PaywallMaxView()
+                .preferredColorScheme(.dark)
+                .previewDisplayName("Dark Mode")
+        }
     }
 }
