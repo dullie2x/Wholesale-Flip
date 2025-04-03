@@ -440,51 +440,48 @@ struct PropertyDetailsView: View {
             }) {
                 Label("Start Fresh", systemImage: "arrow.counterclockwise")
             }
-            
+
             Divider()
-            
+
             Button(action: {
                 // Small delay to avoid potential state conflicts
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                    // Hide keyboard first if it's showing
                     UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder),
                                                    to: nil, from: nil, for: nil)
-                    
-                    // Then show paywall view
                     self.showingPaywallView = true
                 }
             }) {
                 Label("Upgrade to Premium", systemImage: "star.fill")
                     .foregroundColor(Color("Gold"))
             }
-            
-//#if DEBUG
-//            Divider()
-//            
-//            Button(action: {
-//                // Toggle between premium and free user
-//                viewModel.isPremiumUser.toggle()
-//            }) {
-//                Label(
-//                    viewModel.isPremiumUser ? "Set as Free User" : "Set as Premium User",
-//                    systemImage: viewModel.isPremiumUser ? "person.crop.circle.badge.xmark" : "person.crop.circle.badge.checkmark"
-//                )
-//            }
-//            
-//            Button(action: {
-//                // Reset calculation count (for testing)
-//                viewModel.resetCalculationCount()
-//            }) {
-//                Label("Reset Calculation Count", systemImage: "arrow.triangle.2.circlepath")
-//            }
-//#endif
-            
+
+            Divider()
+
+            // Privacy Policy Link
+            Button(action: {
+                if let url = URL(string: "https://www.ariestates.com/profit-flip") {
+                    UIApplication.shared.open(url)
+                }
+            }) {
+                Label("Privacy Policy", systemImage: "lock.shield")
+            }
+
+            // Terms of Use (EULA) Link
+            Button(action: {
+                if let url = URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/") {
+                    UIApplication.shared.open(url)
+                }
+            }) {
+                Label("Terms of Use", systemImage: "doc.text")
+            }
+
         } label: {
             Image(systemName: "ellipsis.circle.fill")
                 .foregroundColor(Color("AppTeal"))
                 .font(.system(size: 22))
         }
     }
+
 }
 
 // Dark mode compatible result card

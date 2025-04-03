@@ -107,8 +107,7 @@ struct PaywallMaxView: View {
                         colorScheme: colorScheme
                     ) {
                         Task {
-                            if isPremiumUser { return }
-                            
+                            // Let Apple handle duplicate subscription attempts
                             await MainActor.run {
                                 isProcessing = true
                             }
@@ -138,8 +137,8 @@ struct PaywallMaxView: View {
                             }
                         }
                     }
-                    .disabled(isPremiumUser || isProcessing)
-                    .opacity((isPremiumUser || isProcessing) ? 0.6 : 1.0)
+                    .disabled(isProcessing)
+                    .opacity(isProcessing ? 0.6 : 1.0)
                     .padding(.horizontal, 20)
                 }
 
@@ -156,20 +155,20 @@ struct PaywallMaxView: View {
                             await MainActor.run {
                                 isProcessing = true
                             }
-                            
+
                             // Restore purchases and verify status
                             await SubscriptionManager.shared.restore()
-                            
+
                             // Wait a moment for the restore to complete
                             try? await Task.sleep(nanoseconds: 500_000_000)
-                            
+
                             await MainActor.run {
                                 isProcessing = false
-                                
+
                                 // Check if premium after restore
                                 if SubscriptionManager.shared.purchasedProductIDs.contains("com.Wholesaleflip.premium.monthly") {
                                     showThankYou = true
-                                    
+
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                                         dismiss()
                                     }
@@ -177,18 +176,28 @@ struct PaywallMaxView: View {
                             }
                         }
                     }
-                    .disabled(isPremiumUser || isProcessing)
-                    .opacity((isPremiumUser || isProcessing) ? 0.6 : 1.0)
+                    .disabled(isProcessing)
+                    .opacity(isProcessing ? 0.6 : 1.0)
                     .font(.system(size: 15, weight: .medium, design: .rounded))
                     .foregroundColor(.white.opacity(0.8))
 
-                    Text("By subscribing, you agree to our Terms & Conditions.")
-                        .font(.system(size: 13, design: .rounded))
-                        .foregroundColor(.white.opacity(0.7))
-                        .multilineTextAlignment(.center)
-                        .padding(.horizontal, 40)
+
+                    (
+                        Text("Terms of Use")
+                            .font(.system(size: 13, design: .rounded))
+                            .foregroundColor(.black) // You can change this to match your theme
+                            .underline()
+                    )
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 40)
+                    .onTapGesture {
+                        if let url = URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/") {
+                            UIApplication.shared.open(url)
+                        }
+                    }
+
                 }
-                .padding(.top, 10)
+                .padding(.top, 15)
 
                 Spacer()
             }

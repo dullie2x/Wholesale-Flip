@@ -114,12 +114,14 @@ class AppDelegate: NSObject, UIApplicationDelegate, FullScreenContentDelegate {
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         MobileAds.shared.start(completionHandler: nil)
 
-        // Only load ads if user is NOT premium
-        let isPremium = UserDefaults.standard.bool(forKey: "isPremiumUser")
-        if !isPremium {
-            loadAd()
-        } else {
-            print("👑 Premium user — skipping app open ad.")
+        // Delay loading the ad (give the app time to load)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            let isPremium = UserDefaults.standard.bool(forKey: "isPremiumUser")
+            if !isPremium {
+                self.loadAd()
+            } else {
+                print("👑 Premium user — skipping app open ad.")
+            }
         }
 
         return true
@@ -132,17 +134,20 @@ class AppDelegate: NSObject, UIApplicationDelegate, FullScreenContentDelegate {
             guard let self = self else { return }
 
             if let error = error {
-                print("❌ Failed to load app open ad: \(error)")
+                print("❌ Failed to load app open ad: \(error.localizedDescription)")
                 return
             }
 
             self.appOpenAd = ad
             self.appOpenAd?.fullScreenContentDelegate = self
 
-            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-               let rootVC = windowScene.windows.first?.rootViewController,
-               let ad = self.appOpenAd {
-                ad.present(from: rootVC)
+            // Wait a bit more before showing ad
+            DispatchQueue.main.asyncAfter(deadline: .now() + 20) {
+                if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                   let rootVC = windowScene.windows.first?.rootViewController,
+                   let ad = self.appOpenAd {
+                    ad.present(from: rootVC)
+                }
             }
         }
     }
@@ -151,3 +156,4 @@ class AppDelegate: NSObject, UIApplicationDelegate, FullScreenContentDelegate {
         appOpenAd = nil
     }
 }
+
